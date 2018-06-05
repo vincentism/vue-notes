@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+</head>
+<body>
+<div id='app'>
+	<el-input :name="name" @input="val=>name=val"></el-input>
+	{{name}}
+</div>
+
+<script>
+	Vue.component('el-input', {
+		render: function (h) {
+			var self = this;
+			return h('input', {
+					// domProps: {
+					// 	value: self.name	
+					// },
+					props: {
+						name: String
+					},
+					on: {
+						input: function (event) {
+							console.log('name', event.target.value);
+							self.$emit('input', event.target.value);
+						}
+					}
+				}
+			);
+		}
+	});	
+
+	new Vue({
+		el: '#app',
+		data: {
+			name: 'vincent'
+		}
+	});
+</script>
+</body>
+</html>

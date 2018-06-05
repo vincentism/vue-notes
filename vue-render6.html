@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>作用域插槽</title>
+	<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+</head>
+<body>
+<div id='app'>
+	<ele>
+		<template scope='props'>
+			<span>{{props.text}}</span>
+		</template>
+	</ele>	
+</div>
+
+<script>
+	Vue.component('ele', {
+		render: function (h) {
+			var self = this;
+			console.log(this.$scopedSlots.default);
+			return h('div', [
+				self.$scopedSlots.default({
+					text: this.msg
+				})]
+			);
+		},
+		data: function () {
+			return {
+				msg: 'vincent'
+			}
+		}
+	});	
+
+	new Vue({
+		el: '#app'
+	});
+</script>
+</body>
+</html>

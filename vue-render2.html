@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+</head>
+<body>
+<div id='app'>
+	<blog>
+		<div slot='header'>
+			header
+		</div>
+		<div>
+			default1
+		</div>
+		<div slot='footer'>
+			footer
+		</div>
+		<div>
+			default2
+		</div>
+	</blog>	
+</div>
+
+<script>
+	Vue.component('blog', {
+		render: function (h) {
+			var header = this.$slots.header;
+			var main = this.$slots.default;
+			console.log('header', main);
+
+			var footer = this.$slots.footer;
+			return h('div', [h('header', header), 
+				h('main', main),
+				h('footer', footer)]
+			);
+		}
+	});	
+
+	new Vue({
+		el: '#app'
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+</head>
+<body>
+<div id='app'>
+	<ele></ele>	
+</div>
+
+<script>
+	var child = {
+		render: function (h) {
+			return h('div', 'test');
+		}
+	}
+	Vue.component('ele', {
+		render: function (h) {
+			return h('div', 
+				Array.apply(null, {length: 2}).map(function(){
+					return h(child);
+				}));
+
+				// Array.apply(null, {0: undefined, 1: undefined, length: 2}).map(function(){
+				// 	return h(child);
+				// }));
+
+				// Array.apply(null, Array(2)).map(function(){
+				// 	return h(child);
+				// }));
+
+				// Array(2).map(function(){
+				// 	return h(child);
+				// }));
+		}
+	});	
+
+	new Vue({
+		el: '#app'
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>向子组件中传递作用域插槽</title>
+	<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+</head>
+<body>
+<div id='app'>
+	<ele>
+	</ele>	
+</div>
+
+<script>
+	Vue.component('ele', {
+		render: function (h) {
+			return h('div', [
+				h('child', {
+					scopedSlots: {
+						default: function (props) {
+							return [
+								h('span', 'from parent'),
+								h('span', props.text)
+							]
+						}
+					}
+				})
+			]);
+		}
+	});	
+
+	Vue.component('child', {
+		render: function (h) {
+			return h('div', this.$scopedSlots.default({text: 'component'}));
+		}
+	});
+
+	new Vue({
+		el: '#app'
+	});
+</script>
+</body>
+</html>

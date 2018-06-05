@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+</head>
+<body>
+<div id='app'>
+	<ele></ele>	
+</div>
+
+<script>
+	Vue.component('ele', {
+		render: function (h) {
+			var self = this;
+			return h('div', {
+					class: {
+						'foo': true,
+						'bar': true
+					},
+					style: {
+						'fontSize': '12px'
+					},
+					attrs: {
+						id: 'wliap'
+					}
+				}, [h('div', 'test1'), h('div', 'test2')]
+			);
+		}
+	});	
+
+	new Vue({
+		el: '#app',
+		data: { 
+			text: 'vincent'
+		},
+		created: function () {
+			console.log(this.$data)
+		}
+	});
+</script>
+</body>
+</html>

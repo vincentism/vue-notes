@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+</head>
+<body>
+<div id='app'>
+	<ele :show='show'></ele>
+	<ele :show='!show'></ele>
+</div>
+
+<script>
+	Vue.component('ele', {
+		render: function (h) {
+			if (this.show) {
+				return h('p', 'test1');
+			} else {
+				return h('p', 'test2');
+			}
+		},
+		props: {
+			show: {
+				type: Boolean,
+				default: true
+			}
+		}
+	});	
+
+	new Vue({
+		el: '#app',
+		data: {
+			show: false
+		}
+	});
+</script>
+</body>
+</html>

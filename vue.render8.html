@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>函数化组件</title>
+	<script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+</head>
+<body>
+<div id='app'>
+	<smart-item :data="data"></smart-item>
+	<button @click="change('img')">切换为图片为组件</button>
+    <button @click="change('text')">切换为文本组件</button>
+</div>
+
+<script>
+	var textComponent = {
+		props: ['data'],
+		render: function (h) {
+			return h('div', [
+				h('div', this.data.text)
+			]);
+		}
+	};
+	var imageComponent = {
+		props: ['data'],
+		render: function (h) {
+			return h('img', {
+				attrs: {
+					url: this.data.url
+				}
+			})
+		}
+	} 
+
+	Vue.component('smart-item', {
+		functional: true,
+		render: function (h, context) {
+			console.log(context.props);
+
+			if (context.props.data.text) {
+				return h(textComponent, {props: {data: context.props.data}});	
+			} else {
+				return h(imageComponent, {props: {data: context.props.data}});	
+			}
+			
+		},
+		props: {
+			data: Object
+		}
+	});	
+
+	new Vue({
+		el: '#app',
+		data: {
+			data: {
+				text: 'vincent'
+			}
+		},
+		methods: {
+			change: function (type) {
+				if (type === 'text') {
+					this.data = {
+						text: 'vincent'
+					}
+				}
+				if (type === 'img') {
+					this.data = {
+						url: 'vincent'
+					}	
+				}
+			}
+		},
+		created: function () {
+			this.change('text');
+		}
+	});
+</script>
+</body>
+</html>
