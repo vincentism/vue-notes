@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child :array="array">
+        <template slot-scope="variable">
+            {{variable}}
+        </template>
+    </child>
+</div>
+
+<script>
+    Vue.component('child', {
+        template: `
+            <ul>
+                <li v-for="item in array">
+                   <slot :variable="item">
+                        {{ item.text }}
+                   </slot>
+                </li>
+            </ul>
+        `,
+        props: {
+            array: Array
+        }
+    });
+
+    new Vue({
+        el: '#app',
+        data: {
+            array: [{
+                    text: '1'
+                },
+                {
+                    text: '2'
+                }
+            ]
+        }
+    });
+</script>
+</body>
+</html>

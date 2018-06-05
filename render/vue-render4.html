@@ -12,14 +12,38 @@
 <script>
 	var child = {
 		render: function (h) {
-			return h('div', 'test');
+			return h('div', {
+			    domProps: {
+			        id: this.data
+                }
+			}, 'test');
+		},
+		props: {
+		    data: String
+		},
+		created: function () {
+		    // 还没有挂载
+            console.log('this.$el', this.$el);
+		},
+		mounted: function () {
+		    // console.log('this.$props', JSON.stringify(this.$props));
+            // console.log('this.$el', this.$el);
+            // console.log('this.$options', this.$options);  // 需要在选项中包含自定义属性时会有用处
+            // console.log('this.$parent', this.$parent);
+            // console.log('this.$root', this.$root);
+			// console.log('this.$children', this.$children); // [] 此刻还没有render?
+			console.log('this.$slot', this.$slot);
 		}
 	}
 	Vue.component('ele', {
 		render: function (h) {
 			return h('div', 
 				Array.apply(null, {length: 2}).map(function(){
-					return h(child);
+					return h(child, {
+					    props: {
+					        data: '123'
+						}
+					});
 				}));
 
 				// Array.apply(null, {0: undefined, 1: undefined, length: 2}).map(function(){
@@ -33,6 +57,9 @@
 				// Array(2).map(function(){
 				// 	return h(child);
 				// }));
+		},
+		mounted: function () {
+			console.log('this.$children', this.$children); //
 		}
 	});	
 
