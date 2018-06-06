@@ -7,8 +7,10 @@
 <body>
 <div id="app">
     <child :array="array">
-        <template slot-scope="variable">
-            {{variable}}
+        <template scope="props">
+            <li>
+                {{props.variable.text}}
+            </li>
         </template>
     </child>
 </div>
@@ -17,11 +19,9 @@
     Vue.component('child', {
         template: `
             <ul>
-                <li v-for="item in array">
-                   <slot :variable="item">
-                        {{ item.text }}
-                   </slot>
-                </li>
+               <slot v-for="item in array" :variable="item">
+                    {{ item.text }}
+               </slot>
             </ul>
         `,
         props: {
